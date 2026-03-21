@@ -8,6 +8,7 @@ This repository consolidates community knowledge in the cellular security space,
 
 ## Table of Contents
 
+- [Getting Started](#getting-started)
 - [Rogue Base Stations](#rogue-base-stations)
 - [Recent Updates (2024-2025)](#recent-updates-2024-2025)
 - [Software and Tools](#software-and-tools)
@@ -33,7 +34,48 @@ This repository consolidates community knowledge in the cellular security space,
 - [Training and Education](#training-and-education)
 - [Vendor-Specific Research](#vendor-specific-research)
 - [Roaming and Interconnect Security](#roaming-and-interconnect-security)
+- [Community](#community)
 - [Resources](#resources)
+
+---
+
+## Getting Started
+
+New to cellular security research? This section outlines the recommended path for building foundational skills.
+
+### Skill Levels
+
+**Beginner (passive listening only)**
+- Hardware: RTL-SDR V3 or V4 ($35-$40), a laptop running Linux
+- Software: GNU Radio, GQRX, gr-gsm
+- First project: Scan and decode GSM frames passively using gr-gsm and Wireshark
+- Reading: [NIST SP 800-187 LTE Security Guide](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-187.pdf)
+
+**Intermediate (active research lab)**
+- Hardware: HackRF One or LimeSDR Mini ($139-$350), programmable SIM cards (sysmoUSIM), a spare Android device
+- Software: srsRAN 4G, Open5GS or Free5GC, OsmocomBB
+- First project: Build a private LTE network in a Faraday cage and connect a test device
+- Reading: srsRAN documentation, Open5GS tutorials
+
+**Advanced (protocol fuzzing and baseband research)**
+- Hardware: USRP B210 or BladeRF 2.0, multiple test devices
+- Software: 5GBaseChecker, LTEFuzz, BaseBridge, SigPloit
+- Focus areas: Baseband fuzzing, RAN-Core interface testing, SS7/Diameter signaling
+
+### Lab Setup Checklist
+
+- [ ] Linux host (Ubuntu 22.04 or 24.04 recommended)
+- [ ] UHD drivers installed and device recognized (`uhd_find_devices`)
+- [ ] Faraday cage or RF shielding for active transmissions
+- [ ] Programmable SIM cards (sysmoUSIM-SJA2 or similar)
+- [ ] Dedicated test devices (not your daily driver)
+- [ ] Isolated network environment (no production network access)
+
+### Key Concepts to Understand First
+
+- [3GPP Architecture Overview](https://www.3gpp.org/technologies/keywords-acronyms/98-lte): how UE, eNodeB, MME, SGW, PGW fit together
+- [IMSI, IMEI, TMSI](https://en.wikipedia.org/wiki/International_mobile_subscriber_identity): subscriber identity fundamentals
+- [AKA Protocol](https://www.3gpp.org/ftp/specs/archive/33_series/33.401/): how authentication works in LTE
 
 ---
 
@@ -115,6 +157,8 @@ This repository consolidates community knowledge in the cellular security space,
 | **srsRAN Project** | Open-source 5G O-RAN CU/DU software suite | [GitHub](https://github.com/srsran/srsRAN_Project) |
 | **srsRAN 4G** | Open-source 4G software radio suite | [GitHub](https://github.com/srsran/srsRAN_4G) |
 | **OpenAirInterface** | Complete 4G/5G protocol stack | [Website](https://openairinterface.org/) |
+| **Free5GC** | Open-source 5G core network implementation | [GitHub](https://github.com/free5gc/free5gc) |
+| **Kamailio** | Open-source SIP server used in IMS/VoLTE labs | [Website](https://www.kamailio.org/) |
 
 ### Configuration Guides
 
@@ -136,6 +180,13 @@ This repository consolidates community knowledge in the cellular security space,
 - **[Modmobmap](https://github.com/Synacktiv-contrib/Modmobmap)** — Mobile network mapping
 - **[Modmobjam](https://github.com/Synacktiv-contrib/Modmobjam)** — Mobile jamming research tool
 - **[CITesting](https://dl.acm.org/doi/10.1145/3719027.3765230)** — Systematic testing of context integrity violations in LTE core networks (KAIST, 2025)
+- **[SigPloit](https://github.com/SigPloiter/SigPloit)** — SS7/Diameter/GTP/SIP signaling security testing framework
+- **[LTEFuzz](https://github.com/koo7/LTEFuzz)** — LTE protocol fuzzer from KAIST, predecessor to CITesting; generates malformed NAS/RRC messages
+- **[Crocodile Hunter](https://github.com/EFForg/crocodile-hunter)** — EFF open-source tool for detecting rogue cell towers by wardriving
+- **[SCAT](https://github.com/fgsect/scat)** — Signaling Collection and Analysis Tool; captures diagnostic logs from Qualcomm and Samsung basebands
+- **[ss7map](https://ss7map.p1sec.com/)** — SS7 network exposure mapping by P1 Security
+- **[Diameter EAP Tool (DET)](https://github.com/intelmq/intelmq)** — Diameter protocol fuzzing and testing
+- **[Osmocom Suite](https://osmocom.org/projects)** — Complete open-source GSM/GPRS stack: osmo-nitb, osmo-bts, osmo-sgsn, osmo-msc and more
 
 ---
 
@@ -486,8 +537,20 @@ From [NIST SP 800-187](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIS
 
 ## SS7 and Telecom Infrastructure
 
+### SS7 Attack Research
+
 - **[Bypassing GSMA SS7 Recommendations](https://github.com/W00t3k/Awesome-Cellular-Hacking/blob/master/D1T2%20-%20Bypassing%20GSMA%20Recommendations%20on%20SS7%20Networks%20-%20Kirill%20Puzankov.pdf)** — Kirill Puzankov
 - **[Attacking SS7 Networks](http://www.hackitoergosum.org/2010/HES2010-planglois-Attacking-SS7.pdf)** — HES 2010
+- **[SS7: Locate. Track. Manipulate.](https://media.ccc.de/v/31c3_-_6249_-_en_-_saal_1_-_201412271715_-_ss7_locate_track_manipulate_-_tobias_engel)** — 31C3 2014, Tobias Engel; live demonstration of cross-network subscriber tracking
+- **[SS7 Map](https://ss7map.p1sec.com/)** — P1 Security; map of SS7 exposure across global carriers
+- **[Diameter Vulnerabilities Exposure](https://www.gsma.com/security/resources/fs-07-diameter-security/)** — GSMA FS.07; official Diameter security guidance for 4G roaming
+- **[GSMA FS.11 SS7 Security](https://www.gsma.com/security/resources/fs-11-ss7-security/)** — GSMA baseline SS7 network security requirements
+
+### SS7/Diameter Testing Tools
+
+- **[SigPloit](https://github.com/SigPloiter/SigPloit)** — Modular testing framework for SS7, Diameter, GTP, and SIP; covers location tracking, call/SMS interception, and DoS scenarios
+- **[ss7map](https://ss7map.p1sec.com/)** — Automated SS7 network topology and exposure mapper
+- **[SCTP scanner](https://github.com/adagilabs/sctp_scanner)** — Discovers SCTP-based SS7 endpoints on IP networks
 
 ---
 
@@ -542,6 +605,10 @@ From [NIST SP 800-187](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIS
 
 - **[GRX/IPX Security Research](https://www.gsma.com/newsroom/)** — GSMA roaming security
 - **[Diameter Protocol Security](https://tools.ietf.org/html/rfc6733)** — 4G/5G signaling security
+- **[GSMA FS.19 IPX Security](https://www.gsma.com/security/resources/fs-19-ipe-security/)** — Security requirements for IPX providers handling roaming traffic
+- **[Roaming Attacks via Diameter](https://www.p1sec.com/blog/diameter-roaming-attacks/)** — P1 Security analysis of Diameter-based roaming attack surface
+- **[GTP Vulnerabilities in 4G/5G Roaming](https://www.a1qa.com/blog/gtp-vulnerabilities-mobile-network-security/)** — GTP-C and GTP-U attack surface at the roaming interface
+- **[AdaptiveMobile SS7 Firewall Research](https://www.adaptivemobile.com/resources)** — Carrier-grade SS7/Diameter firewall bypass techniques
 
 ---
 
@@ -574,6 +641,31 @@ From [NIST SP 800-187](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIS
 - **[LTE Recon — DefCon 23](https://www.rtl-sdr.com/one-more-rtl-sdr-talk-from-defcon-23/)**
 - **[LTE Security Guide — NIST SP 800-187](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-187.pdf)**
 - **[LTE Pwnage: Core Network Elements](https://conference.hitb.org/hitbsecconf2013ams/materials/D1T2%20-%20Philippe%20Langlois%20-%20Hacking%20HLR%20HSS%20and%20MME%20Core%20Network%20Elements.pdf)** — HITB 2013
+
+---
+
+## Community
+
+### Mailing Lists and Forums
+
+- **[Osmocom Mailing Lists](https://lists.osmocom.org/mailman/listinfo)** — Active developer and user lists for OpenBTS, OsmocomBB, srsRAN topics
+- **[srsRAN Discussions](https://github.com/srsran/srsRAN_Project/discussions)** — GitHub Discussions for the srsRAN Project
+- **[OpenAirInterface Forum](https://gitlab.eurecom.fr/oai/openairinterface5g/-/issues)** — OAI issue tracker and community support
+- **[Reddit r/RTLSDR](https://www.reddit.com/r/RTLSDR/)** — Active SDR community covering cellular scanning and analysis
+- **[Reddit r/cellmapper](https://www.reddit.com/r/cellmapper/)** — Cell tower mapping and analysis community
+
+### IRC and Chat
+
+- **[Osmocom IRC](https://osmocom.org/projects/cellular-infrastructure/wiki/IRC)** — #osmocom on libera.chat; real-time support for Osmocom tools
+- **[DEF CON RF Village](https://rfvillage.org/)** — Annual RF hacking community track at DEF CON
+
+### Conferences to Follow
+
+- **[DEF CON](https://defcon.org/)** — RF Village, Wireless Village, and main track cellular talks
+- **[Black Hat USA/Europe](https://www.blackhat.com/)** — Regular cellular/baseband research presentations
+- **[WiSec](https://wisec.acm.org/)** — ACM Conference on Security and Privacy in Wireless and Mobile Networks
+- **[IEEE S&P / CCS / USENIX Security](https://www.ieee-security.org/TC/SP/)** — Top-tier academic venue for cellular security papers
+- **[HITB](https://conference.hitb.org/)** — Regular telecom security talks
 
 ---
 
