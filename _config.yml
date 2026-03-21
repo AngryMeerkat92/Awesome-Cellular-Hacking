@@ -1,1 +1,4 @@
-theme: jekyll-theme-minimal
+theme: jekyll-theme-cayman
+title: Awesome Cellular Hacking
+description: A curated list of resources for 2G/3G/4G/5G cellular security research and analysis
+show_downloads: false
