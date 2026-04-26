@@ -1,6 +1,6 @@
 # Awesome Cellular Hacking
 
-> A comprehensive curated list of resources for 2G/3G/4G/5G cellular security research and analysis
+> A comprehensive c,mnbfurated list of resources for 2G/3G/4G/5G cellular security research and analysis
 
 This repository consolidates community knowledge in the cellular security space, including exploits, research papers, tools, and educational resources. The goal is to preserve and organize important security research that might otherwise become difficult to find.
 
